@@ -1,0 +1,87 @@
+# # --- FastAPI Core ---
+# fastapi
+# uvicorn[standard]
+# python-multipart
+# pydantic
+# python-dotenv
+# requests
+# pandas 
+# scikit-learn 
+# joblib
+# # --- LangChain + Vector DBs ---
+# langchain
+# langchain-core
+# langchain-community
+# langchain-qdrant
+# langchain-pinecone
+# langchain-huggingface
+
+# # --- Embeddings + Transformers ---
+# transformers==4.57.1
+# torch==2.9.0+cpu  --index-url https://download.pytorch.org/whl/cpu
+# accelerate==1.11.0
+# sentencepiece
+# sentence-transformers
+# # --- Document Processing ---
+# pypdf
+
+# # --- Qdrant Client ---
+# qdrant-client
+
+
+
+
+
+
+
+
+
+
+# --- FastAPI Core ---
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic[email]
+python-dotenv
+requests
+
+# --- Authentication & Security (NEW) ---
+passlib[bcrypt]
+python-jose[cryptography]
+
+# --- MongoDB (NEW) ---
+motor
+pymongo
+
+# --- Data Processing ---
+pandas 
+scikit-learn 
+joblib
+
+# --- LangChain + Vector DBs ---
+langchain
+langchain-core
+langchain-community
+langchain-qdrant
+langchain-pinecone
+langchain-huggingface
+langchain-google-genai
+
+# --- AI/LLM ---
+google-generativeai
+
+# --- Embeddings + Transformers ---
+transformers==4.57.1
+torch==2.5.1
+accelerate==1.11.0
+sentencepiece
+sentence-transformers
+
+# --- Document Processing ---
+pypdf
+
+# --- Qdrant Client ---
+qdrant-client
+
+# --- Utilities ---
+huggingface-hub
