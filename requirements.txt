@@ -1,13 +1,63 @@
+# # # --- FastAPI Core ---
+# # fastapi
+# # uvicorn[standard]
+# # python-multipart
+# # pydantic
+# # python-dotenv
+# # requests
+# # pandas 
+# # scikit-learn 
+# # joblib
+# # # --- LangChain + Vector DBs ---
+# # langchain
+# # langchain-core
+# # langchain-community
+# # langchain-qdrant
+# # langchain-pinecone
+# # langchain-huggingface
+
+# # # --- Embeddings + Transformers ---
+# # transformers==4.57.1
+# # torch==2.9.0+cpu  --index-url https://download.pytorch.org/whl/cpu
+# # accelerate==1.11.0
+# # sentencepiece
+# # sentence-transformers
+# # # --- Document Processing ---
+# # pypdf
+
+# # # --- Qdrant Client ---
+# # qdrant-client
+
+
+
+
+
+
+
+
+
+
 # # --- FastAPI Core ---
 # fastapi
 # uvicorn[standard]
 # python-multipart
-# pydantic
+# pydantic[email]
 # python-dotenv
 # requests
+
+# # --- Authentication & Security (NEW) ---
+# passlib[bcrypt]
+# python-jose[cryptography]
+
+# # --- MongoDB (NEW) ---
+# motor
+# pymongo
+
+# # --- Data Processing ---
 # pandas 
 # scikit-learn 
 # joblib
+
 # # --- LangChain + Vector DBs ---
 # langchain
 # langchain-core
@@ -15,21 +65,26 @@
 # langchain-qdrant
 # langchain-pinecone
 # langchain-huggingface
+# langchain-google-genai
+
+# # --- AI/LLM ---
+# google-generativeai
 
 # # --- Embeddings + Transformers ---
 # transformers==4.57.1
-# torch==2.9.0+cpu  --index-url https://download.pytorch.org/whl/cpu
+# torch==2.5.1
 # accelerate==1.11.0
 # sentencepiece
 # sentence-transformers
+
 # # --- Document Processing ---
 # pypdf
 
 # # --- Qdrant Client ---
 # qdrant-client
 
-
-
+# # --- Utilities ---
+# huggingface-hub
 
 
 
@@ -38,50 +93,69 @@
 
 
 # --- FastAPI Core ---
-fastapi
-uvicorn[standard]
-python-multipart
-pydantic[email]
-python-dotenv
-requests
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+pydantic[email]==2.10.3
+python-dotenv==1.0.1
+requests==2.32.3
 
-# --- Authentication & Security (NEW) ---
-passlib[bcrypt]
-python-jose[cryptography]
+# --- Authentication & Security ---
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+bcrypt==4.2.1
+cryptography==44.0.0
 
-# --- MongoDB (NEW) ---
-motor
-pymongo
+# --- MongoDB ---
+motor==3.6.0
+pymongo==4.10.1
 
 # --- Data Processing ---
-pandas 
-scikit-learn 
-joblib
+pandas==2.2.3
+scikit-learn==1.5.2
+joblib==1.4.2
 
 # --- LangChain + Vector DBs ---
-langchain
-langchain-core
-langchain-community
-langchain-qdrant
-langchain-pinecone
-langchain-huggingface
-langchain-google-genai
+langchain==0.3.13
+langchain-core==0.3.28
+langchain-community==0.3.13
+langchain-qdrant==0.2.0
+langchain-pinecone==0.2.0
+langchain-huggingface==0.1.2
+langchain-google-genai==2.0.7
 
 # --- AI/LLM ---
-google-generativeai
+google-generativeai==0.8.3
 
 # --- Embeddings + Transformers ---
 transformers==4.57.1
 torch==2.5.1
 accelerate==1.11.0
-sentencepiece
-sentence-transformers
+sentencepiece==0.2.0
+sentence-transformers==3.3.1
 
 # --- Document Processing ---
-pypdf
+pypdf==5.1.0
 
 # --- Qdrant Client ---
-qdrant-client
+qdrant-client==1.12.1
 
-# --- Utilities ---
-huggingface-hub
+# --- Pinecone ---
+pinecone-client==5.0.1
+
+# --- Additional Required Dependencies ---
+# (These are implicit dependencies that need explicit versions for Render)
+numpy==1.26.4
+typing-extensions==4.12.2
+annotated-types==0.7.0
+pydantic-core==2.27.1
+anyio==4.7.0
+starlette==0.41.3
+httpx==0.28.1
+idna==3.10
+certifi==2024.8.30
+charset-normalizer==3.4.0
+urllib3==2.2.3
+
+# --- Hugging Face Hub ---
+huggingface-hub==0.27.0
