@@ -15,7 +15,9 @@ import asyncio
 import traceback
 
 # Langchain imports
-from langchain.vectorstores.base import VectorStore
+# from langchain.vectorstores.base import VectorStore
+# from langchain_core.vectorstores import VectorStore
+from langchain_community.vectorstores import VectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from qdrant_client import QdrantClient
 from langchain_qdrant import QdrantVectorStore

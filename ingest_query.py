@@ -31,7 +31,7 @@ from typing import List, Dict, Any
 import json
 
 # Your FastAPI server URL
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://127.0.0.0:8000"
 headers = {"X-API-Key": "super-secret-token"}
 
 # Define metadata for each file
