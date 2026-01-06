@@ -92,80 +92,119 @@
 
 
 
-# --- FastAPI Core ---
+# # --- FastAPI Core ---
+# fastapi==0.115.5
+# uvicorn[standard]==0.32.1
+# python-multipart==0.0.20
+# pydantic[email]==2.10.3
+# python-dotenv==1.0.1
+# requests==2.32.3
+
+# # --- Authentication & Security ---
+# passlib[bcrypt]==1.7.4
+# python-jose[cryptography]==3.3.0
+# bcrypt==4.2.1
+# cryptography==44.0.0
+
+# # --- MongoDB ---
+# motor==3.6.0
+# # pymongo==4.10.1
+# pymongo==4.9.1
+
+# # --- Data Processing ---
+# pandas==2.2.3
+# scikit-learn==1.5.2
+# joblib==1.4.2
+
+# # --- LangChain + Vector DBs ---
+# # langchain==0.3.13
+# # langchain-core==0.3.28
+# # # langchain-core==0.3.34
+# # langchain-community==0.3.13
+# # langchain-qdrant==0.2.0
+# # langchain-pinecone==0.2.13
+# # langchain-huggingface==0.1.2
+# # langchain-google-genai==2.0.7
+# langchain>=0.3.13
+# langchain-core>=0.3.34
+# langchain-community>=0.3.13
+# langchain-qdrant>=0.2.0
+# langchain-pinecone>=0.2.13
+# langchain-huggingface>=0.1.2
+# langchain-google-genai>=2.0.7
+
+
+
+# # --- AI/LLM ---
+# google-generativeai==0.8.3
+
+# # --- Embeddings + Transformers ---
+# transformers==4.57.1
+# torch==2.5.1
+# accelerate==1.11.0
+# sentencepiece==0.2.0
+# sentence-transformers==3.3.1
+
+# # --- Document Processing ---
+# pypdf==5.1.0
+
+# # --- Qdrant Client ---
+# qdrant-client==1.12.1
+
+# # --- Pinecone ---
+# pinecone==5.4.2
+
+# # --- Additional Required Dependencies ---
+# numpy==1.26.4
+# typing-extensions==4.12.2
+# annotated-types==0.7.0
+# pydantic-core==2.27.1
+# anyio==4.7.0
+# starlette==0.41.3
+# httpx==0.28.1
+# idna==3.10
+# certifi==2024.8.30
+# charset-normalizer==3.4.0
+# urllib3==2.2.3
+
+# # --- Hugging Face Hub ---
+# # huggingface-hub==0.27.0
+# huggingface-hub>=0.34.0 
+
+
+
+
+
+# Core Framework
 fastapi==0.115.5
 uvicorn[standard]==0.32.1
 python-multipart==0.0.20
 pydantic[email]==2.10.3
 python-dotenv==1.0.1
-requests==2.32.3
 
-# --- Authentication & Security ---
+# Authentication
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
 bcrypt==4.2.1
-cryptography==44.0.0
 
-# --- MongoDB ---
+# Database
 motor==3.6.0
-# pymongo==4.10.1
 pymongo==4.9.1
 
-# --- Data Processing ---
-pandas==2.2.3
-scikit-learn==1.5.2
-joblib==1.4.2
-
-# --- LangChain + Vector DBs ---
-# langchain==0.3.13
-# langchain-core==0.3.28
-# # langchain-core==0.3.34
-# langchain-community==0.3.13
-# langchain-qdrant==0.2.0
-# langchain-pinecone==0.2.13
-# langchain-huggingface==0.1.2
-# langchain-google-genai==2.0.7
+# LangChain Stack (let them resolve dependencies)
 langchain>=0.3.13
-langchain-core>=0.3.34
-langchain-community>=0.3.13
 langchain-qdrant>=0.2.0
 langchain-pinecone>=0.2.13
-langchain-huggingface>=0.1.2
 langchain-google-genai>=2.0.7
 
+# AI/ML (let them resolve numpy, torch, etc.)
+google-generativeai>=0.8.3
+transformers>=4.57.1
+sentence-transformers>=3.3.1
 
+# Vector DBs
+qdrant-client>=1.12.1
+pinecone>=5.4.2
 
-# --- AI/LLM ---
-google-generativeai==0.8.3
-
-# --- Embeddings + Transformers ---
-transformers==4.57.1
-torch==2.5.1
-accelerate==1.11.0
-sentencepiece==0.2.0
-sentence-transformers==3.3.1
-
-# --- Document Processing ---
-pypdf==5.1.0
-
-# --- Qdrant Client ---
-qdrant-client==1.12.1
-
-# --- Pinecone ---
-pinecone==5.4.2
-
-# --- Additional Required Dependencies ---
-numpy==1.26.4
-typing-extensions==4.12.2
-annotated-types==0.7.0
-pydantic-core==2.27.1
-anyio==4.7.0
-starlette==0.41.3
-httpx==0.28.1
-idna==3.10
-certifi==2024.8.30
-charset-normalizer==3.4.0
-urllib3==2.2.3
-
-# --- Hugging Face Hub ---
-huggingface-hub==0.27.0
+# Utils
+pypdf>=5.1.0
