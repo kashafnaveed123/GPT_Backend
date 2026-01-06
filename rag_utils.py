@@ -1,8 +1,8 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
-# from langchain_pinecone import PineconeVectorStore
-from langchain_community.vectorstores import Pinecone
+# # from langchain_pinecone import PineconeVectorStore
+# from langchain_community.vectorstores import Pinecone
 from langchain_core.documents import Document
 from pathlib import Path
 import re
@@ -43,8 +43,8 @@ def create_qdrant_vectorstore(docs, url, api_key, collection):
         docs, embeddings, url=url, api_key=api_key, collection_name=collection
     )
 
-def create_pinecone_vectorstore(docs, api_key, index_name):
-    embeddings = get_embedding_model()
-    return PineconeVectorStore.from_documents(
-        docs, embeddings, index_name=index_name
-    )
+# def create_pinecone_vectorstore(docs, api_key, index_name):
+#     embeddings = get_embedding_model()
+#     return PineconeVectorStore.from_documents(
+#         docs, embeddings, index_name=index_name
+#     )

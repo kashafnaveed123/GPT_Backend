@@ -52,7 +52,7 @@ load_dotenv()
 from rag_utils import (
     load_md_to_chunks,
     create_qdrant_vectorstore,
-    create_pinecone_vectorstore,
+    # create_pinecone_vectorstore,
 )
 
 # =======================
@@ -65,8 +65,8 @@ print(f"🔑 Loaded {len(GEMINI_API_KEY_LIST)} Gemini API keys")
 QDRANT_URL = os.getenv("QDRANT_URL")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "myChatbot")
-PINECONE_KEY = os.getenv("PINECONE_API_KEY")
-PINECONE_INDEX = os.getenv("PINECONE_INDEX", "demo-vectorstore")
+# PINECONE_KEY = os.getenv("PINECONE_API_KEY")
+# PINECONE_INDEX = os.getenv("PINECONE_INDEX", "demo-vectorstore")
 API_KEY = os.getenv("API_KEY", "super-secret-token")
 
 print("="*60)
@@ -781,8 +781,9 @@ async def ingest_local(use_qdrant: bool = True):
         )
         store_type = "Qdrant"
     else:
-        VECTOR_STORE = create_pinecone_vectorstore(all_docs, PINECONE_KEY, PINECONE_INDEX)
-        store_type = "Pinecone"
+        print("⚠️ Qdrant config missing, skipping Qdrant ingestion.")
+        # VECTOR_STORE = create_pinecone_vectorstore(all_docs, PINECONE_KEY, PINECONE_INDEX)
+        # store_type = "Pinecone"
 
     print(f"✅ Ingested {len(all_docs)} docs into {store_type}")
     
