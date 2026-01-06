@@ -1,13 +1,63 @@
+# # # # # --- FastAPI Core ---
+# # # # fastapi
+# # # # uvicorn[standard]
+# # # # python-multipart
+# # # # pydantic
+# # # # python-dotenv
+# # # # requests
+# # # # pandas 
+# # # # scikit-learn 
+# # # # joblib
+# # # # # --- LangChain + Vector DBs ---
+# # # # langchain
+# # # # langchain-core
+# # # # langchain-community
+# # # # langchain-qdrant
+# # # # langchain-pinecone
+# # # # langchain-huggingface
+
+# # # # # --- Embeddings + Transformers ---
+# # # # transformers==4.57.1
+# # # # torch==2.9.0+cpu  --index-url https://download.pytorch.org/whl/cpu
+# # # # accelerate==1.11.0
+# # # # sentencepiece
+# # # # sentence-transformers
+# # # # # --- Document Processing ---
+# # # # pypdf
+
+# # # # # --- Qdrant Client ---
+# # # # qdrant-client
+
+
+
+
+
+
+
+
+
+
 # # # # --- FastAPI Core ---
 # # # fastapi
 # # # uvicorn[standard]
 # # # python-multipart
-# # # pydantic
+# # # pydantic[email]
 # # # python-dotenv
 # # # requests
+
+# # # # --- Authentication & Security (NEW) ---
+# # # passlib[bcrypt]
+# # # python-jose[cryptography]
+
+# # # # --- MongoDB (NEW) ---
+# # # motor
+# # # pymongo
+
+# # # # --- Data Processing ---
 # # # pandas 
 # # # scikit-learn 
 # # # joblib
+
 # # # # --- LangChain + Vector DBs ---
 # # # langchain
 # # # langchain-core
@@ -15,19 +65,26 @@
 # # # langchain-qdrant
 # # # langchain-pinecone
 # # # langchain-huggingface
+# # # langchain-google-genai
+
+# # # # --- AI/LLM ---
+# # # google-generativeai
 
 # # # # --- Embeddings + Transformers ---
 # # # transformers==4.57.1
-# # # torch==2.9.0+cpu  --index-url https://download.pytorch.org/whl/cpu
+# # # torch==2.5.1
 # # # accelerate==1.11.0
 # # # sentencepiece
 # # # sentence-transformers
+
 # # # # --- Document Processing ---
 # # # pypdf
 
 # # # # --- Qdrant Client ---
 # # # qdrant-client
 
+# # # # --- Utilities ---
+# # # huggingface-hub
 
 
 
@@ -35,188 +92,195 @@
 
 
 
+# # # # --- FastAPI Core ---
+# # # fastapi==0.115.5
+# # # uvicorn[standard]==0.32.1
+# # # python-multipart==0.0.20
+# # # pydantic[email]==2.10.3
+# # # python-dotenv==1.0.1
+# # # requests==2.32.3
 
+# # # # --- Authentication & Security ---
+# # # passlib[bcrypt]==1.7.4
+# # # python-jose[cryptography]==3.3.0
+# # # bcrypt==4.2.1
+# # # cryptography==44.0.0
 
-# # # --- FastAPI Core ---
-# # fastapi
-# # uvicorn[standard]
-# # python-multipart
-# # pydantic[email]
-# # python-dotenv
-# # requests
+# # # # --- MongoDB ---
+# # # motor==3.6.0
+# # # # pymongo==4.10.1
+# # # pymongo==4.9.1
 
-# # # --- Authentication & Security (NEW) ---
-# # passlib[bcrypt]
-# # python-jose[cryptography]
+# # # # --- Data Processing ---
+# # # pandas==2.2.3
+# # # scikit-learn==1.5.2
+# # # joblib==1.4.2
 
-# # # --- MongoDB (NEW) ---
-# # motor
-# # pymongo
-
-# # # --- Data Processing ---
-# # pandas 
-# # scikit-learn 
-# # joblib
-
-# # # --- LangChain + Vector DBs ---
-# # langchain
-# # langchain-core
-# # langchain-community
-# # langchain-qdrant
-# # langchain-pinecone
-# # langchain-huggingface
-# # langchain-google-genai
-
-# # # --- AI/LLM ---
-# # google-generativeai
-
-# # # --- Embeddings + Transformers ---
-# # transformers==4.57.1
-# # torch==2.5.1
-# # accelerate==1.11.0
-# # sentencepiece
-# # sentence-transformers
-
-# # # --- Document Processing ---
-# # pypdf
-
-# # # --- Qdrant Client ---
-# # qdrant-client
-
-# # # --- Utilities ---
-# # huggingface-hub
+# # # # --- LangChain + Vector DBs ---
+# # # # langchain==0.3.13
+# # # # langchain-core==0.3.28
+# # # # # langchain-core==0.3.34
+# # # # langchain-community==0.3.13
+# # # # langchain-qdrant==0.2.0
+# # # # langchain-pinecone==0.2.13
+# # # # langchain-huggingface==0.1.2
+# # # # langchain-google-genai==2.0.7
+# # # langchain>=0.3.13
+# # # langchain-core>=0.3.34
+# # # langchain-community>=0.3.13
+# # # langchain-qdrant>=0.2.0
+# # # langchain-pinecone>=0.2.13
+# # # langchain-huggingface>=0.1.2
+# # # langchain-google-genai>=2.0.7
 
 
 
+# # # # --- AI/LLM ---
+# # # google-generativeai==0.8.3
+
+# # # # --- Embeddings + Transformers ---
+# # # transformers==4.57.1
+# # # torch==2.5.1
+# # # accelerate==1.11.0
+# # # sentencepiece==0.2.0
+# # # sentence-transformers==3.3.1
+
+# # # # --- Document Processing ---
+# # # pypdf==5.1.0
+
+# # # # --- Qdrant Client ---
+# # # qdrant-client==1.12.1
+
+# # # # --- Pinecone ---
+# # # pinecone==5.4.2
+
+# # # # --- Additional Required Dependencies ---
+# # # numpy==1.26.4
+# # # typing-extensions==4.12.2
+# # # annotated-types==0.7.0
+# # # pydantic-core==2.27.1
+# # # anyio==4.7.0
+# # # starlette==0.41.3
+# # # httpx==0.28.1
+# # # idna==3.10
+# # # certifi==2024.8.30
+# # # charset-normalizer==3.4.0
+# # # urllib3==2.2.3
+
+# # # # --- Hugging Face Hub ---
+# # # # huggingface-hub==0.27.0
+# # # huggingface-hub>=0.34.0 
 
 
 
 
-# # # --- FastAPI Core ---
+
+# # # Core Framework
 # # fastapi==0.115.5
 # # uvicorn[standard]==0.32.1
 # # python-multipart==0.0.20
 # # pydantic[email]==2.10.3
 # # python-dotenv==1.0.1
-# # requests==2.32.3
 
-# # # --- Authentication & Security ---
+# # # Authentication
 # # passlib[bcrypt]==1.7.4
 # # python-jose[cryptography]==3.3.0
 # # bcrypt==4.2.1
-# # cryptography==44.0.0
 
-# # # --- MongoDB ---
+# # # Database
 # # motor==3.6.0
-# # # pymongo==4.10.1
 # # pymongo==4.9.1
 
-# # # --- Data Processing ---
+# # # Data Science
 # # pandas==2.2.3
 # # scikit-learn==1.5.2
-# # joblib==1.4.2
 
-# # # --- LangChain + Vector DBs ---
-# # # langchain==0.3.13
-# # # langchain-core==0.3.28
-# # # # langchain-core==0.3.34
-# # # langchain-community==0.3.13
-# # # langchain-qdrant==0.2.0
-# # # langchain-pinecone==0.2.13
-# # # langchain-huggingface==0.1.2
-# # # langchain-google-genai==2.0.7
-# # langchain>=0.3.13
-# # langchain-core>=0.3.34
-# # langchain-community>=0.3.13
-# # langchain-qdrant>=0.2.0
-# # langchain-pinecone>=0.2.13
-# # langchain-huggingface>=0.1.2
-# # langchain-google-genai>=2.0.7
+# # # LangChain Core (specific versions that work together)
+# # langchain==0.3.13
+# # langchain-core==0.3.28
+# # langchain-community==0.3.13
+# # langchain-text-splitters==0.3.11
 
+# # # LangChain Integrations
+# # langchain-qdrant==0.2.0
+# # langchain-google-genai==2.0.7
+# # # Removed langchain-pinecone - causing conflicts
 
-
-# # # --- AI/LLM ---
+# # # AI/ML
 # # google-generativeai==0.8.3
-
-# # # --- Embeddings + Transformers ---
-# # transformers==4.57.1
-# # torch==2.5.1
-# # accelerate==1.11.0
-# # sentencepiece==0.2.0
 # # sentence-transformers==3.3.1
+# # transformers==4.57.1
+# # huggingface-hub>=0.34.0,<1.0
 
-# # # --- Document Processing ---
+# # # Vector Databases
+# # qdrant-client==1.12.1
+# # pinecone-client==3.0.0
+
+# # # Utils
 # # pypdf==5.1.0
 
-# # # --- Qdrant Client ---
-# # qdrant-client==1.12.1
-
-# # # --- Pinecone ---
-# # pinecone==5.4.2
-
-# # # --- Additional Required Dependencies ---
-# # numpy==1.26.4
-# # typing-extensions==4.12.2
-# # annotated-types==0.7.0
-# # pydantic-core==2.27.1
-# # anyio==4.7.0
-# # starlette==0.41.3
-# # httpx==0.28.1
-# # idna==3.10
-# # certifi==2024.8.30
-# # charset-normalizer==3.4.0
-# # urllib3==2.2.3
-
-# # # --- Hugging Face Hub ---
-# # # huggingface-hub==0.27.0
-# # huggingface-hub>=0.34.0 
 
 
 
 
-
-# # Core Framework
+# # ===========================================
+# # CORE FRAMEWORK
+# # ===========================================
 # fastapi==0.115.5
 # uvicorn[standard]==0.32.1
 # python-multipart==0.0.20
 # pydantic[email]==2.10.3
 # python-dotenv==1.0.1
 
-# # Authentication
+# # ===========================================
+# # AUTHENTICATION & SECURITY
+# # ===========================================
 # passlib[bcrypt]==1.7.4
 # python-jose[cryptography]==3.3.0
 # bcrypt==4.2.1
 
-# # Database
+# # ===========================================
+# # DATABASE
+# # ===========================================
 # motor==3.6.0
 # pymongo==4.9.1
 
-# # Data Science
+# # ===========================================
+# # DATA PROCESSING
+# # ===========================================
 # pandas==2.2.3
 # scikit-learn==1.5.2
 
-# # LangChain Core (specific versions that work together)
+# # ===========================================
+# # LANGCHAIN STACK (Tested Compatible Versions)
+# # ===========================================
 # langchain==0.3.13
 # langchain-core==0.3.28
 # langchain-community==0.3.13
 # langchain-text-splitters==0.3.11
 
-# # LangChain Integrations
+# # ===========================================
+# # LANGCHAIN INTEGRATIONS
+# # ===========================================
 # langchain-qdrant==0.2.0
 # langchain-google-genai==2.0.7
-# # Removed langchain-pinecone - causing conflicts
 
-# # AI/ML
+# # ===========================================
+# # AI/ML MODELS
+# # ===========================================
 # google-generativeai==0.8.3
 # sentence-transformers==3.3.1
 # transformers==4.57.1
 # huggingface-hub>=0.34.0,<1.0
 
-# # Vector Databases
+# # ===========================================
+# # VECTOR DATABASE (Qdrant Only - Stable)
+# # ===========================================
 # qdrant-client==1.12.1
-# pinecone-client==3.0.0
 
-# # Utils
+# # ===========================================
+# # DOCUMENT PROCESSING
+# # ===========================================
 # pypdf==5.1.0
 
 
@@ -252,12 +316,12 @@ pandas==2.2.3
 scikit-learn==1.5.2
 
 # ===========================================
-# LANGCHAIN STACK (Tested Compatible Versions)
+# LANGCHAIN STACK - Compatible Set
 # ===========================================
 langchain==0.3.13
-langchain-core==0.3.28
+langchain-core==0.3.26
 langchain-community==0.3.13
-langchain-text-splitters==0.3.11
+# Remove langchain-text-splitters - use the one bundled with langchain
 
 # ===========================================
 # LANGCHAIN INTEGRATIONS
@@ -274,7 +338,7 @@ transformers==4.57.1
 huggingface-hub>=0.34.0,<1.0
 
 # ===========================================
-# VECTOR DATABASE (Qdrant Only - Stable)
+# VECTOR DATABASE
 # ===========================================
 qdrant-client==1.12.1
 
