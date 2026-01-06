@@ -191,20 +191,30 @@ bcrypt==4.2.1
 motor==3.6.0
 pymongo==4.9.1
 
-# LangChain Stack (let them resolve dependencies)
-langchain>=0.3.13
-langchain-qdrant>=0.2.0
-langchain-pinecone>=0.2.13
-langchain-google-genai>=2.0.7
+# Data Science
+pandas==2.2.3
+scikit-learn==1.5.2
 
-# AI/ML (let them resolve numpy, torch, etc.)
-google-generativeai>=0.8.3
-transformers>=4.57.1
-sentence-transformers>=3.3.1
+# LangChain Core (specific versions that work together)
+langchain==0.3.13
+langchain-core==0.3.28
+langchain-community==0.3.13
+langchain-text-splitters==0.3.11
 
-# Vector DBs
-qdrant-client>=1.12.1
-pinecone>=5.4.2
+# LangChain Integrations
+langchain-qdrant==0.2.0
+langchain-google-genai==2.0.7
+# Removed langchain-pinecone - causing conflicts
+
+# AI/ML
+google-generativeai==0.8.3
+sentence-transformers==3.3.1
+transformers==4.57.1
+huggingface-hub>=0.34.0,<1.0
+
+# Vector Databases
+qdrant-client==1.12.1
+pinecone-client==3.0.0
 
 # Utils
-pypdf>=5.1.0
+pypdf==5.1.0
