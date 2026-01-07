@@ -19,7 +19,8 @@ import traceback
 # from langchain_core.vectorstores import VectorStore
 # from langchain_community.vectorstores import VectorStore
 from langchain_core.vectorstores import VectorStore
-from langchain_community.embeddings import HuggingFaceEmbeddings
+# from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from qdrant_client import QdrantClient
 from langchain_qdrant import QdrantVectorStore
 from langchain_google_genai import ChatGoogleGenerativeAI
