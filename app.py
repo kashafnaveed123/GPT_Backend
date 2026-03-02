@@ -14,16 +14,22 @@ from dotenv import load_dotenv
 import asyncio
 import traceback
 
+# Load environment variables early and from an explicit path.
+# This ensures modules imported below (e.g., auth.py) read the correct values.
+BASE_DIR = Path(__file__).resolve().parent
+ENV_PATH = BASE_DIR / ".env"
+load_dotenv(dotenv_path=ENV_PATH)
+
 # Langchain imports
 # from langchain.vectorstores.base import VectorStore
 # from langchain_core.vectorstores import VectorStore
 # from langchain_community.vectorstores import VectorStore
 from langchain_core.vectorstores import VectorStore
 # from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
 from qdrant_client import QdrantClient
 from langchain_qdrant import QdrantVectorStore
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_qdrant.qdrant import QdrantVectorStoreError
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
 
 # Auth imports
@@ -48,9 +54,6 @@ from chat_service import (
     init_chat_db
 )
 
-# Load environment variables
-load_dotenv()
-
 from rag_utils import (
     load_md_to_chunks,
     create_qdrant_vectorstore,
@@ -70,6 +73,7 @@ QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "myChatbot")
 # PINECONE_KEY = os.getenv("PINECONE_API_KEY")
 # PINECONE_INDEX = os.getenv("PINECONE_INDEX", "demo-vectorstore")
 API_KEY = os.getenv("API_KEY", "super-secret-token")
+GEMINI_EMBED_MODEL = os.getenv("GEMINI_EMBED_MODEL", "models/embedding-001").strip()
 
 print("="*60)
 print("🚀 Starting Enhanced Chatbot Backend with Chat History")
@@ -172,7 +176,43 @@ else:
 # =======================
 VECTOR_STORE: Optional[VectorStore] = None
 LOCAL_QDRANT_PATH = Path("local_qdrant")
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
+def init_embeddings():
+    """Initialize embeddings with model fallback for API/version compatibility."""
+    if not GEMINI_API_KEY_LIST:
+        return None
+
+    candidates = []
+    if GEMINI_EMBED_MODEL:
+        # Normalize shorthand values like "gemini-embedding-001" to full resource names.
+        if GEMINI_EMBED_MODEL.startswith("models/"):
+            candidates.append(GEMINI_EMBED_MODEL)
+        else:
+            candidates.append(f"models/{GEMINI_EMBED_MODEL}")
+    for fallback in [
+        "models/gemini-embedding-001",
+        "models/text-embedding-004",
+        "models/embedding-001",
+    ]:
+        if fallback not in candidates:
+            candidates.append(fallback)
+
+    for model_name in candidates:
+        try:
+            emb = GoogleGenerativeAIEmbeddings(
+                model=model_name,
+                google_api_key=GEMINI_API_KEY_LIST[0]
+            )
+            emb.embed_query("embedding-health-check")
+            print(f"✅ Embeddings initialized with: {model_name}")
+            return emb
+        except Exception as e:
+            print(f"⚠️ Embedding model failed ({model_name}): {e}")
+
+    print("❌ Failed to initialize embeddings with all configured fallback models")
+    return None
+
+embeddings = init_embeddings()
 
 # =======================
 # Helper Functions for Query Limits
@@ -300,15 +340,23 @@ def load_existing_vectorstore():
     global VECTOR_STORE
     
     try:
+        if embeddings is None:
+            print("⚠️ Skipping vectorstore load: embeddings are not initialized")
+            return
+
         if QDRANT_URL and QDRANT_API_KEY:
             print(f"🔗 Connecting to remote Qdrant: {QDRANT_URL}")
             client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
-            VECTOR_STORE = QdrantVectorStore(
-                embedding=embeddings,
-                client=client,
-                collection_name=QDRANT_COLLECTION,
-            )
-            print(f"✅ Connected to Qdrant: {QDRANT_COLLECTION}")
+            try:
+                VECTOR_STORE = QdrantVectorStore(
+                    embedding=embeddings,
+                    client=client,
+                    collection_name=QDRANT_COLLECTION,
+                )
+                print(f"✅ Connected to Qdrant: {QDRANT_COLLECTION}")
+            except QdrantVectorStoreError as e:
+                print(f"⚠️ Qdrant collection schema mismatch for '{QDRANT_COLLECTION}': {e}")
+                print("⚠️ Run /ingest_local to recreate the collection with the correct schema.")
             return
 
         if LOCAL_QDRANT_PATH.exists():
@@ -483,7 +531,7 @@ Answer:"""
         except Exception as llm_error:
             print(f"❌ All API keys failed: {llm_error}")
             traceback.print_exc()
-            answer = "I encountered an error while processing your question."
+            answer = "Hi, What's up?"
         
         if not answer:
             answer = "I'm Kashaf's AI assistant — I may not have this detail, but I can help you explore it."
@@ -759,6 +807,12 @@ async def ingest_local(use_qdrant: bool = True):
     """Ingest Markdown files - admin only"""
     global VECTOR_STORE
 
+    if embeddings is None:
+        raise HTTPException(
+            status_code=500,
+            detail="Embeddings not initialized (check GEMINI_API_KEYS / GEMINI_EMBED_MODEL)"
+        )
+
     folder_path = Path("data")
     md_files = list(folder_path.glob("*.md"))
     
@@ -774,18 +828,31 @@ async def ingest_local(use_qdrant: bool = True):
         print(f"   ✅ {md_file.name}: {len(docs)} chunks")
 
     if use_qdrant and QDRANT_URL and QDRANT_API_KEY:
-        VECTOR_STORE = QdrantVectorStore.from_documents(
-            documents=all_docs,
-            embedding=embeddings,
-            url=QDRANT_URL,
-            api_key=QDRANT_API_KEY,
-            collection_name=QDRANT_COLLECTION,
-        )
+        try:
+            VECTOR_STORE = QdrantVectorStore.from_documents(
+                documents=all_docs,
+                embedding=embeddings,
+                url=QDRANT_URL,
+                api_key=QDRANT_API_KEY,
+                collection_name=QDRANT_COLLECTION,
+            )
+        except QdrantVectorStoreError as e:
+            print(f"⚠️ Qdrant validation failed for '{QDRANT_COLLECTION}': {e}")
+            print("♻️ Recreating collection with current embedding schema...")
+            VECTOR_STORE = QdrantVectorStore.from_documents(
+                documents=all_docs,
+                embedding=embeddings,
+                url=QDRANT_URL,
+                api_key=QDRANT_API_KEY,
+                collection_name=QDRANT_COLLECTION,
+                force_recreate=True,
+            )
         store_type = "Qdrant"
     else:
-        print("⚠️ Qdrant config missing, skipping Qdrant ingestion.")
-        # VECTOR_STORE = create_pinecone_vectorstore(all_docs, PINECONE_KEY, PINECONE_INDEX)
-        # store_type = "Pinecone"
+        raise HTTPException(
+            status_code=500,
+            detail="Qdrant configuration missing (QDRANT_URL/QDRANT_API_KEY)"
+        )
 
     print(f"✅ Ingested {len(all_docs)} docs into {store_type}")
     

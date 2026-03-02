@@ -31,7 +31,7 @@ from typing import List, Dict, Any
 import json
 
 # Your FastAPI server URL
-BASE_URL = "http://127.0.0.0:8000"
+BASE_URL = "http://127.0.0.1:8000"
 headers = {"X-API-Key": "super-secret-token"}
 
 # Define metadata for each file
@@ -164,12 +164,23 @@ def ingest_documents_with_metadata(documents: List[Dict[str, Any]]) -> bool:
             headers=headers,
             timeout=300  # 5 minutes timeout for large documents
         )
-        resp = response.json()
-        print('response resp : ', resp)
-        if resp.status_code == 200:
+
+        try:
+            resp = response.json()
+        except ValueError:
+            resp = None
+
+        if resp is not None:
+            print('response resp : ', resp)
+        else:
+            print("response resp : <non-JSON response>")
+
+        if response.status_code == 200:
             print("✅ Ingestion completed successfully!")
-            # result = response.json()
-            print(json.dumps(resp, indent=2))
+            if resp is not None:
+                print(json.dumps(resp, indent=2))
+            else:
+                print(response.text)
             return True
         else:
             print("❌ Ingestion failed!")

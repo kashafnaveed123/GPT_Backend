@@ -1,17 +1,12 @@
 # from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
 # # from langchain_pinecone import PineconeVectorStore
 # from langchain_community.vectorstores import Pinecone
 from langchain_core.documents import Document
 from pathlib import Path
 import re
-
-def get_embedding_model():
-    return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 def load_md_to_chunks(md_path: str):
     """Load a Markdown file and split it into chunks."""
@@ -40,8 +35,7 @@ def load_md_to_chunks(md_path: str):
     
     return doc_list
 
-def create_qdrant_vectorstore(docs, url, api_key, collection):
-    embeddings = get_embedding_model()
+def create_qdrant_vectorstore(docs, embeddings, url, api_key, collection):
     return QdrantVectorStore.from_documents(
         docs, embeddings, url=url, api_key=api_key, collection_name=collection
     )
